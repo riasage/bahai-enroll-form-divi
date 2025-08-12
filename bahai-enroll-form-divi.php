@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Bahá’í Enrollment Form (Divi Builder Module)
  * Plugin URI: https://devg.grlpro.com
- * Description: Divi Builder module with bilingual (EN/JA) Bahá’í enrollment form, reCAPTCHA v3, and email delivery.
- * Version: 1.1.0
+ * Description: Divi Builder module with bilingual (EN/JA) Bahá’í enrollment form, reCAPTCHA v3, and email delivery. Fully intergrated into DIVI. no shortcode needed
+ * Version: 1.1.1
  * Author: dev_g
  * Author URI: https://devg.grlpro.com
  * Text Domain: bahai-enroll-form-divi

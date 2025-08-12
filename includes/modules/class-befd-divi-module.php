@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 class BEFD_Divi_Module extends ET_Builder_Module {
     public $slug       = 'befd_enrollment_form';
-    public $vb_support = 'on'; // support Visual Builder preview
+    public $vb_support = 'partial'; // support Visual Builder preview
 
     function init() {
         $this->name = esc_html__( 'Bahá’í Enrollment Form', 'bahai-enroll-form-divi' );

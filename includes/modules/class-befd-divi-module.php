@@ -100,14 +100,15 @@ class BEFD_Divi_Module extends ET_Builder_Module {
         }
 
         // Provide $texts and $lang to the view and force initial language
-        $_GET['lang'] = $lang;
-        if ( file_exists( BEFD_PATH . 'views/form.php' ) ) {
-            $view_texts = $texts;
-            $texts = $view_texts;
-            include BEFD_PATH . 'views/form.php';
-        } else {
-            echo '<p>' . esc_html__( 'Form template not found.', 'bahai-enroll-form-divi' ) . '</p>';
-        }
+        // NEW: URL (?lang=) takes priority; otherwise fall back to module setting
+        $initial_lang = ( $this->props['language'] === 'ja' ) ? 'ja' : 'en';
+        $url_lang     = ( isset($_GET['lang']) && $_GET['lang'] === 'ja' ) ? 'ja' : ( ( isset($_GET['lang']) && $_GET['lang'] === 'en' ) ? 'en' : null );
+        $lang         = $url_lang ? $url_lang : $initial_lang;
+
+        // pass to the view explicitly (don’t touch $_GET)
+        $view_lang   = $lang;
+        $view_texts  = $texts;
+
 
         return ob_get_clean();
     }

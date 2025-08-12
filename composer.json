@@ -1,0 +1,15 @@
+{
+  "name": "devg/bahai-enroll-form-divi",
+  "description": "Divi Builder module providing a bilingual Bah\u00e1\u2019\u00ed enrollment form",
+  "type": "wordpress-plugin",
+  "require": {},
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "squizlabs/php_codesniffer": "^3.10",
+    "wp-coding-standards/wpcs": "^3.0"
+  },
+  "scripts": {
+    "lint": "php -l $(git ls-files '*.php')",
+    "cs": "phpcs --standard=phpcs.xml.dist"
+  }
+}

@@ -1,0 +1,20 @@
+name: Release ZIP
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist
+      - run: bash ./tools/build-zip.sh
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/bahai-enroll-form-divi.zip

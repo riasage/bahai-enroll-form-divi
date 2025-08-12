@@ -1,0 +1,27 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  lint-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+      - name: Install tools
+        run: composer install --no-interaction --prefer-dist
+      - name: PHPCS
+        run: vendor/bin/phpcs -q
+      - name: PHP Lint
+        run: |
+          find . -type f -name "*.php" -not -path "./vendor/*" -print0 | xargs -0 -n1 php -l
+      - name: Build ZIP
+        run: bash ./tools/build-zip.sh
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bahai-enroll-form-divi
+          path: build/bahai-enroll-form-divi.zip

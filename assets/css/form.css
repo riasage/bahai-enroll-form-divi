@@ -1,0 +1,18 @@
+/* Divi-like styling */
+.befd-form-wrap{max-width:900px;margin:0 auto;font-family:inherit;color:#333}
+.befd-header{text-align:center;margin-bottom:14px}
+.befd-title{font-size:42px; font-weight:800; margin:10px 0}
+.befd-preamble{max-width:760px;margin:0 auto 12px;line-height:1.4}
+.befd-lang-toggle{margin:8px 0 16px}
+.befd-form label{display:block;font-weight:700;margin:6px 0}
+.befd-row{margin-bottom:14px}
+.befd-row input[type=text], .befd-row textarea, .befd-grid input, .befd-grid select{
+  width:100%;padding:16px;border-radius:6px;border:1px solid #d9d9d9;background:#ebebeb;
+}
+.befd-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:12px}
+.befd-col label{display:block;font-weight:700;margin:6px 0}
+.befd-agree{display:flex;align-items:flex-start;gap:12px;margin:12px 0 20px}
+.befd-send{display:block;width:320px;margin:0 auto 30px;opacity:.5;transition:all .2s ease}
+.befd-send.enabled{opacity:1;background:#007cff;color:#fff}
+.befd-confirmation{text-align:center;padding:40px 0}
+@media(max-width:700px){.befd-grid{grid-template-columns:1fr} .befd-send{width:100%}}

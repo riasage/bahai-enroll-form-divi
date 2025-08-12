@@ -2,18 +2,17 @@
 /**
  * Plugin Name: Bahá’í Enrollment Form (Divi Builder Module)
  * Plugin URI: https://devg.grlpro.com
- * Description: Divi Builder extension providing a bilingual (English/Japanese) Bahá’í enrollment form with reCAPTCHA v3, email delivery, and optional encrypted exports.
- * Version: 1.0.1
+ * Description: Divi Builder module with bilingual (EN/JA) Bahá’í enrollment form, reCAPTCHA v3, and email delivery. Fully intergrated into DIVI. no shortcode needed
+ * Version: 1.1.1
  * Author: dev_g
  * Author URI: https://devg.grlpro.com
  * Text Domain: bahai-enroll-form-divi
  * Domain Path: /languages
  * License: GPLv2 or later
  */
-
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'BEFD_VERSION', '1.0.1' );
+define( 'BEFD_VERSION', '1.1.0' );
 define( 'BEFD_SLUG', 'bahai-enroll-form-divi' );
 define( 'BEFD_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BEFD_URL', plugin_dir_url( __FILE__ ) );
@@ -26,7 +25,6 @@ class BEFD_Plugin {
     public function __construct() {
         add_action( 'init', array( $this, 'i18n' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
-        add_shortcode( 'bahai_enrollment_form', array( 'BEFD_Form', 'render_shortcode' ) );
 
         // Register Divi module only when Divi is ready and present.
         add_action( 'et_builder_ready', function() {
@@ -58,5 +56,4 @@ class BEFD_Plugin {
         ) );
     }
 }
-
 new BEFD_Plugin();

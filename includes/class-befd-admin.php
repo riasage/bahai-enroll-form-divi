@@ -105,20 +105,6 @@ class BEFD_Admin {
               </table>
             </div>
 
-            <div id="module" class="tab-pane" style="display:none">
-              <h2>Module Texts</h2>
-              <p>Override default texts (leave blank to use defaults).</p>
-              <table class="form-table">
-                <?php
-                $fields = array('title_en','title_ja','preamble_en','preamble_ja','name_en','name_ja','address_en','address_ja','dob_en','dob_ja','gender_en','gender_ja','phone_en','phone_ja','email_en','email_ja','agree_en','agree_ja','send_en','send_ja');
-                foreach ($fields as $f) {
-                    $val = isset($settings['module_texts'][$f]) ? $settings['module_texts'][$f] : '';
-                    echo '<tr><th scope="row"><label>' . esc_html($f) . '</label></th><td><input name="module_texts['.esc_attr($f).']" type="text" value="'.esc_attr($val).'" class="large-text" /></td></tr>';
-                }
-                ?>
-              </table>
-            </div>
-
             <div id="export" class="tab-pane" style="display:none">
               <h2>Export</h2>
               <p>Download a CSV of all encrypted submissions stored in uploads.</p>

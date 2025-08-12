@@ -2,11 +2,8 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 class BEFD_Form {
-
     public static function texts() {
-        $s = BEFD_Admin::get_settings();
-        $t = isset($s['module_texts']) ? $s['module_texts'] : array();
-        $d = array(
+        return array(
           'title_en' => 'Application to enroll in the Bahá’í Community',
           'title_ja' => 'バハイ共同体加入申込書',
           'preamble_en' => 'I wish to enroll in the Bahá’í community. I accept Bahá’u’lláh as the Manifestation of God today. I understand that the Báb is His Forerunner, and that ‘Abdu’l-Bahá is His Successor, and that there are teachings and an administrative order to follow.',
@@ -24,27 +21,10 @@ class BEFD_Form {
           'email_en' => 'Email',
           'email_ja' => 'メール・アドレス',
           'agree_en' => 'I AGREE that the personal information above will be used for administrative purposes such as membership records, distribution of communications, and statistics.',
-          'agree_ja' => '上記の個人所情報は名簿管理、通信物配布、統計など行政的管理目的のみに用います。',
+          'agree_ja' => '上記の個人情報は名簿管理、通信物配布、統計など行政的管理目的のみに用います。',
           'send_en' => 'SEND',
           'send_ja' => '送信'
         );
-        return wp_parse_args( $t, $d );
-    }
-
-    public static function render_shortcode( $atts ) {
-        ob_start();
-        $texts = self::texts();
-
-        $lang = ( isset($_GET['lang']) && $_GET['lang'] === 'ja' ) ? 'ja' : 'en';
-        if ( isset($_GET['befd_success']) && $_GET['befd_success'] == '1' ) {
-            $settings = BEFD_Admin::get_settings();
-            echo '<div class="befd-confirmation"><p>' . wp_kses_post($settings['confirm_message']) . '</p>';
-            echo '<p><a class="et_pb_button" href="' . esc_url( remove_query_arg('befd_success') ) . '">' . esc_html__( 'Fill another form', 'bahai-enroll-form-divi' ) . '</a></p></div>';
-            return ob_get_clean();
-        }
-
-        include BEFD_PATH . 'views/form.php';
-        return ob_get_clean();
     }
 
     public static function handle_submission() {
@@ -77,12 +57,12 @@ class BEFD_Form {
         }
 
         $lang   = sanitize_text_field( isset($_POST['lang']) ? $_POST['lang'] : 'en' );
-        $name   = BEFD_Utils::sanitize_text( isset($_POST['name']) ? $_POST['name'] : '' );
+        $name   = sanitize_text_field( isset($_POST['name']) ? $_POST['name'] : '' );
         $address= sanitize_textarea_field( isset($_POST['address']) ? $_POST['address'] : '' );
-        $dob    = BEFD_Utils::sanitize_text( isset($_POST['dob']) ? $_POST['dob'] : '' );
-        $gender = BEFD_Utils::sanitize_text( isset($_POST['gender']) ? $_POST['gender'] : '' );
-        $phone  = BEFD_Utils::sanitize_text( isset($_POST['phone']) ? $_POST['phone'] : '' );
-        $email  = BEFD_Utils::sanitize_email( isset($_POST['email']) ? $_POST['email'] : '' );
+        $dob    = sanitize_text_field( isset($_POST['dob']) ? $_POST['dob'] : '' );
+        $gender = sanitize_text_field( isset($_POST['gender']) ? $_POST['gender'] : '' );
+        $phone  = sanitize_text_field( isset($_POST['phone']) ? $_POST['phone'] : '' );
+        $email  = sanitize_email( isset($_POST['email']) ? $_POST['email'] : '' );
 
         $fields = compact('lang','name','address','dob','gender','phone','email');
         $fields['timestamp'] = current_time('mysql');
@@ -112,6 +92,5 @@ class BEFD_Form {
         exit;
     }
 }
-
 add_action( 'admin_post_befd_submit', array( 'BEFD_Form', 'handle_submission' ) );
 add_action( 'admin_post_nopriv_befd_submit', array( 'BEFD_Form', 'handle_submission' ) );

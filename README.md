@@ -9,5 +9,4 @@ vendor/bin/phpcs -q
 bash ./tools/build-zip.sh
 ```
 
-## Shortcode
-`[bahai_enrollment_form]`
+Fully intergrated into DIVI

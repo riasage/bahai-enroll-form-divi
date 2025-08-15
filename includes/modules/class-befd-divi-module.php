@@ -5,6 +5,36 @@ class BEFD_Divi_Module extends ET_Builder_Module {
     public $slug       = 'befd_enrollment_form';
     public $vb_support = 'partial'; // support Visual Builder preview
 
+ class BEFD_Divi_Module extends ET_Builder_Module {
+     public $slug       = 'befd_enrollment_form';
+-    public $vb_support = 'on';
++    public $vb_support = 'partial';
+
+@@
+-        // Defaults from plugin, then module overrides:
++        // Defaults from plugin, then module overrides:
+         $defaults  = BEFD_Form::texts();
+@@
+-        $lang        = ( $this->props['language'] === 'ja' ) ? 'ja' : 'en';
++        // URL (?lang) takes priority; fall back to module's initial language
++        $initial_lang = ( $this->props['language'] === 'ja' ) ? 'ja' : 'en';
++        $url_lang     = ( isset($_GET['lang']) && in_array($_GET['lang'], array('en','ja'), true) ) ? $_GET['lang'] : null;
++        $lang         = $url_lang ? $url_lang : $initial_lang;
+         $show_toggle = $this->props['show_toggle'] === 'on';
+         $button_bg   = ! empty( $this->props['button_bg'] ) ? $this->props['button_bg'] : '#007cff';
+@@
+-        // Provide $texts and $lang to the view; force initial language for the render:
+-        $_GET['lang'] = $lang;
++        // Provide $texts and selected $lang to the view (don’t touch $_GET)
++        $view_lang  = $lang;
++        $view_texts = $texts;
+         if ( file_exists( BEFD_PATH . 'views/form.php' ) ) {
+-            $view_texts = $texts;
+-            $texts = $view_texts;
++            $texts = $view_texts; // expected by view
+             include BEFD_PATH . 'views/form.php';
+
+
     function init() {
         $this->name = esc_html__( 'Bahá’í Enrollment Form', 'bahai-enroll-form-divi' );
         $this->settings_modal_toggles = array(
